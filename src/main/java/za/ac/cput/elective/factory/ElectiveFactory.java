@@ -6,7 +6,7 @@ import java.util.*;
 public class ElectiveFactory {
 
 
-    public static Elective createElective(long electCode, String electName) {
+    public static Elective createElective(String electCode, String electName) {
         Elective elect = new Elective.Builder()
                 .setElectCode(electCode)
                 .setElectName(electName)
