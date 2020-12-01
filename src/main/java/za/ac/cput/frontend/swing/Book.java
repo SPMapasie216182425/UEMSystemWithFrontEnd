@@ -14,7 +14,7 @@ import java.time.LocalTime;
 
 /**
  * GUI Created By: William King,
- * Implementaion By Ridhaa Hendricks (218120966) and Sean Trainer (Enter Student Number)
+ * Implementaion By Ridhaa Hendricks (218120966) and Sean Trainor (218060033)
  * @author Admin
  */
 
@@ -277,17 +277,22 @@ public class Book extends javax.swing.JFrame {
                 int row = jTable1.rowAtPoint(evt.getPoint());
                 int col = jTable1.columnAtPoint(evt.getPoint());
                 if (row == 0 && col == 0) {
-                    jTextArea2.append(jTable1.getValueAt(row, col).toString() + "\n");
+                    jTextArea2.append(jTable1.getValueAt(row, col).toString() + "." + "\n" + "In this elective we learn about data models and sociotechnical systems.");
+                    jTextArea1.setText("This elective is for AppDev students.");
                 } else if (row == 1 && col == 0) {
-                    jTextArea2.append(jTable1.getValueAt(row, col).toString() + "\n");
+                    jTextArea2.append(jTable1.getValueAt(row, col).toString()+ "." + "\n" + "In this elective we learn about Python fundamentals with Pycharm.");
+                    jTextArea1.setText("This elective is for all students.");
                 } else if (row == 2 && col == 0) {
-                    jTextArea2.append(jTable1.getValueAt(row, col).toString() + "\n");
+                    jTextArea2.append(jTable1.getValueAt(row, col).toString() + "." + "\n" + "In this elective we learn about advanced Java OOP.");
+                    jTextArea1.setText("This elective is for AppDev students.");
                 } else if (row == 3 && col == 0) {
-                    jTextArea2.append(jTable1.getValueAt(row, col).toString() + "\n");
+                    jTextArea2.append(jTable1.getValueAt(row, col).toString() + "." + "\n" + "In this elective we learn about advanced database handling.");
+                    jTextArea1.setText("This elective is for all students.");
                 } else if (row == 4 && col == 0) {
-                    jTextArea2.append(jTable1.getValueAt(row, col).toString() + "\n");
+                    jTextArea2.append(jTable1.getValueAt(row, col).toString() + "." + "\n" + "In this elective we learn about cybersecurity");
+                    jTextArea1.setText("This elective is for ComNet students.");
                 } else if (row == 5 && col == 0) {
-                    jTextArea2.append(jTable1.getValueAt(row, col).toString() + "\n");
+                    jTextArea2.append(jTable1.getValueAt(row, col).toString() + "." + "\n" + "In this elective we learn about data models and sociotechnical systems.");
                 }
 
             }
