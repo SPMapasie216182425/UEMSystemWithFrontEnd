@@ -5,22 +5,7 @@
  */
 package za.ac.cput.frontend.swing;
 
-import za.ac.cput.elective.entity.Elective;
-import za.ac.cput.elective.entity.Faculty;
-import za.ac.cput.elective.entity.Gender;
-import za.ac.cput.elective.entity.Lecturer;
-import za.ac.cput.elective.factory.ElectiveFactory;
-import za.ac.cput.elective.factory.FacultyFactory;
-import za.ac.cput.elective.factory.GenderFactory;
-import za.ac.cput.elective.factory.LecturerFactory;
-import za.ac.cput.elective.service.impl.ElectiveServiceImpl;
-import za.ac.cput.elective.service.impl.FacultyServiceImpl;
-import za.ac.cput.elective.service.impl.GenderServiceImpl;
-import za.ac.cput.elective.service.impl.LecturerServiceImpl;
-
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -33,7 +18,7 @@ import java.time.LocalTime;
  * @author Admin
  */
 
-public class Book extends javax.swing.JFrame implements ActionListener {
+public class Book extends javax.swing.JFrame {
 
     /**
      * Creates new form Home
@@ -42,15 +27,6 @@ public class Book extends javax.swing.JFrame implements ActionListener {
         initComponents();
 
     }
-
-    // subject global variables
-    String facID = "12345"; // faculty,
-    String facName = "Engineering"; // faculty,
-    String electID, electName; // elective,
-    String emailAdd, cellNo, telNo; // contact
-    char genderID; // gender, lecturer
-    long lecturerID; // lecturer
-    String lecturerLName, lecturerFName; // lecturer
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -234,97 +210,6 @@ public class Book extends javax.swing.JFrame implements ActionListener {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        // ********************** Populating Items into the Table **********************
-        String [] header={"Name","Code"};
-        String [][] data={{"Application Development Theory 3", "ADT362S"},
-                {"Python", "ICE362S"},
-                {"Application Development Practice 3", "ADP362S"},
-                {"Information Systems 3", "ITS362S"},
-                {"Communication Networking 3", "CMN362S"}};
-
-        DefaultTableModel model = new DefaultTableModel(data,header){
-            public boolean isCellEditable(int row, int column)
-            {
-                return false;//This causes all cells to be not editable
-            }
-        };
-
-        jTable1 = new JTable(model);
-        // ********************** End of Populating Items into the Table **********************
-
-        // ********************** Populating TextArea with Details **********************
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-
-                jTextArea2.setEditable(false);
-                jTextArea2.setText("");
-
-                int row = jTable1.rowAtPoint(evt.getPoint());
-                int col = jTable1.columnAtPoint(evt.getPoint());
-                if (row == 0 && col == 0) {
-                    electID = data[row][1];
-                    electName = data[row][0];
-                    genderID = 'f';
-                    lecturerID = 2000;
-                    lecturerLName = "Khan";
-                    lecturerFName = "Gillian";
-
-                    jTextArea2.append(electName + "." + "\n" + "In this elective we learn about data models and sociotechnical systems.");
-                    jTextArea1.setText("This elective is for AppDev students.");
-                } else if (row == 1 && col == 0) {
-                    electID = data[row][1];
-                    electName = data[row][0];
-                    genderID = 'm';
-                    lecturerID = 2001;
-                    lecturerLName = "Unknown";
-                    lecturerFName = "Unknown";
-
-                    jTextArea2.append(jTable1.getValueAt(row, col).toString()+ "." + "\n" + "In this elective we learn about Python fundamentals with Pycharm.");
-                    jTextArea1.setText("This elective is for all students.");
-                } else if (row == 2 && col == 0) {
-                    electID = data[row][1];
-                    electName = data[row][0];
-                    genderID = 'm';
-                    lecturerID = 2003;
-                    lecturerLName = "Arinze";
-                    lecturerFName = "Anikwuae";
-
-                    jTextArea2.append(jTable1.getValueAt(row, col).toString() + "." + "\n" + "In this elective we learn about advanced Java OOP.");
-                    jTextArea1.setText("This elective is for AppDev students.");
-                } else if (row == 3 && col == 0) {
-                    electID = data[row][1];
-                    electName = data[row][0];
-                    genderID = 'm';
-                    lecturerID = 2004;
-                    lecturerLName = "Rothman";
-                    lecturerFName = "Wilhelm";
-
-                    jTextArea2.append(jTable1.getValueAt(row, col).toString() + "." + "\n" + "In this elective we learn about advanced database handling.");
-                    jTextArea1.setText("This elective is for all students.");
-                } else if (row == 4 && col == 0) {
-                    electID = data[row][1];
-                    electName = data[row][0];
-                    genderID = 'f';
-                    lecturerID = 2005;
-                    lecturerLName = "Unknown";
-                    lecturerFName = "Unknown";
-
-                    jTextArea2.append(jTable1.getValueAt(row, col).toString() + "." + "\n" + "In this elective we learn about cybersecurity");
-                    jTextArea1.setText("This elective is for ComNet students.");
-                }
-
-            }
-        });
-
-        // ********************** End of Populating TextArea with Details **********************
-
-        // ********************** Booking an Elective **********************
-
-        button1.addActionListener(this);
-
-        // ********************** End of Booking an Elective **********************
-
         jPanel3.setBackground(new java.awt.Color(71, 120, 197));
 
         button1.setBackground(new java.awt.Color(23, 35, 51));
@@ -361,7 +246,6 @@ public class Book extends javax.swing.JFrame implements ActionListener {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-<<<<<<< HEAD
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Application Development Theory 3", "ADT362S"},
@@ -382,8 +266,6 @@ public class Book extends javax.swing.JFrame implements ActionListener {
                 return canEdit [columnIndex];
             }
         });
-=======
->>>>>>> origin/master
         jTable1.setColumnSelectionAllowed(true);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
@@ -532,11 +414,11 @@ public class Book extends javax.swing.JFrame implements ActionListener {
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         // TODO add your handling code here:
-//        JOptionPane.showMessageDialog(null, "You have succuesfully registered for an Elective"
-//                + "\nYou can choose to make changes on the next page.");
-//        Overview overview = new Overview();
-//        this.setVisible(false);
-//        overview.setVisible(true);
+        JOptionPane.showMessageDialog(null, "You have succuesfully registered for an Elective"
+                + "\nYou can choose to make changes on the next page.");
+        Overview overview = new Overview();
+        this.setVisible(false);
+        overview.setVisible(true);
     }//GEN-LAST:event_button1ActionPerformed
 
     /**
@@ -593,6 +475,7 @@ public class Book extends javax.swing.JFrame implements ActionListener {
         }
         
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btn_2;
@@ -620,33 +503,5 @@ public class Book extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JPanel side_pane;
-
-    // ********************** Booking an Elective Method **********************
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == button1){
-
-            Faculty fac = new FacultyFactory().addFaculty(facID, facName);
-            Faculty facServImpl = new FacultyServiceImpl().create(fac);
-
-            Elective elect = new ElectiveFactory().createElective(electID, electName);
-            Elective electServImpl = new ElectiveServiceImpl().create(elect);
-
-            Gender gender = new GenderFactory().createGender(genderID);
-            Gender genderServImpl = new GenderServiceImpl().create(gender);
-
-            Lecturer lect = new LecturerFactory().createLecturer(lecturerID, lecturerLName,
-                    lecturerFName, genderID);
-            Lecturer lectServImpl = new LecturerServiceImpl().create(lect);
-
-            JOptionPane.showMessageDialog(null, "You have succuesfully registered for an Elective"
-                    + "\nYou can choose to make changes on the next page.");
-            Overview overview = new Overview();
-            this.setVisible(false);
-            overview.setVisible(true);
-        }
-    }
-    // ********************** End of Booking an Elective Method **********************
-
     // End of variables declaration//GEN-END:variables
 }
