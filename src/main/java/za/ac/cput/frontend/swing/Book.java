@@ -361,7 +361,6 @@ public class Book extends javax.swing.JFrame implements ActionListener {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-<<<<<<< HEAD
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Application Development Theory 3", "ADT362S"},
@@ -382,8 +381,7 @@ public class Book extends javax.swing.JFrame implements ActionListener {
                 return canEdit [columnIndex];
             }
         });
-=======
->>>>>>> origin/master
+
         jTable1.setColumnSelectionAllowed(true);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
