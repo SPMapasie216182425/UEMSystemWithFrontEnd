@@ -5,7 +5,18 @@
  */
 package za.ac.cput.frontend.swing;
 
+import za.ac.cput.elective.entity.Elective;
+import za.ac.cput.elective.entity.Faculty;
+import za.ac.cput.elective.entity.Gender;
+import za.ac.cput.elective.entity.Lecturer;
+import za.ac.cput.elective.factory.ElectiveFactory;
+import za.ac.cput.elective.factory.FacultyFactory;
+import za.ac.cput.elective.factory.GenderFactory;
+import za.ac.cput.elective.factory.LecturerFactory;
+
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -18,7 +29,7 @@ import java.time.LocalTime;
  * @author Admin
  */
 
-public class Book extends javax.swing.JFrame {
+public class Book extends javax.swing.JFrame implements ActionListener {
 
     /**
      * Creates new form Home
@@ -27,6 +38,15 @@ public class Book extends javax.swing.JFrame {
         initComponents();
 
     }
+
+    // subject global variables
+    String facID = "12345"; // faculty,
+    String facName = "Engineering"; // faculty,
+    String electID, electName; // elective,
+    String emailAdd, cellNo, telNo; // contact
+    char genderID; // gender, lecturer
+    long lecturerID; // lecturer
+    String lecturerLName, lecturerFName; // lecturer
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -253,9 +273,7 @@ public class Book extends javax.swing.JFrame {
                 {"Python", "ICE362S"},
                 {"Application Development Practice 3", "ADP362S"},
                 {"Information Systems 3", "ITS362S"},
-                {"Communication Networking 3", "CMN362S"},
-                {"For Testing Purposes", "32154"},
-                {"More Testing Purposes", "32154"}};
+                {"Communication Networking 3", "CMN362S"}};
 
         DefaultTableModel model = new DefaultTableModel(data,header){
             public boolean isCellEditable(int row, int column)
@@ -265,6 +283,7 @@ public class Book extends javax.swing.JFrame {
         };
 
         jTable1 = new JTable(model);
+        // ********************** End of Populating Items into the Table **********************
 
         // ********************** Populating TextArea with Details **********************
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -277,26 +296,67 @@ public class Book extends javax.swing.JFrame {
                 int row = jTable1.rowAtPoint(evt.getPoint());
                 int col = jTable1.columnAtPoint(evt.getPoint());
                 if (row == 0 && col == 0) {
-                    jTextArea2.append(jTable1.getValueAt(row, col).toString() + "." + "\n" + "In this elective we learn about data models and sociotechnical systems.");
+                    electID = data[row][1];
+                    electName = data[row][0];
+                    genderID = 'f';
+                    lecturerID = 2000;
+                    lecturerLName = "Khan";
+                    lecturerFName = "Gillian";
+
+                    jTextArea2.append(electName + "." + "\n" + "In this elective we learn about data models and sociotechnical systems.");
                     jTextArea1.setText("This elective is for AppDev students.");
                 } else if (row == 1 && col == 0) {
+                    electID = data[row][1];
+                    electName = data[row][0];
+                    genderID = 'm';
+                    lecturerID = 2001;
+                    lecturerLName = "Unknown";
+                    lecturerFName = "Unknown";
+
                     jTextArea2.append(jTable1.getValueAt(row, col).toString()+ "." + "\n" + "In this elective we learn about Python fundamentals with Pycharm.");
                     jTextArea1.setText("This elective is for all students.");
                 } else if (row == 2 && col == 0) {
+                    electID = data[row][1];
+                    electName = data[row][0];
+                    genderID = 'm';
+                    lecturerID = 2003;
+                    lecturerLName = "Arinze";
+                    lecturerFName = "Anikwuae";
+
                     jTextArea2.append(jTable1.getValueAt(row, col).toString() + "." + "\n" + "In this elective we learn about advanced Java OOP.");
                     jTextArea1.setText("This elective is for AppDev students.");
                 } else if (row == 3 && col == 0) {
+                    electID = data[row][1];
+                    electName = data[row][0];
+                    genderID = 'm';
+                    lecturerID = 2004;
+                    lecturerLName = "Rothman";
+                    lecturerFName = "Wilhelm";
+
                     jTextArea2.append(jTable1.getValueAt(row, col).toString() + "." + "\n" + "In this elective we learn about advanced database handling.");
                     jTextArea1.setText("This elective is for all students.");
                 } else if (row == 4 && col == 0) {
+                    electID = data[row][1];
+                    electName = data[row][0];
+                    genderID = 'f';
+                    lecturerID = 2005;
+                    lecturerLName = "Unknown";
+                    lecturerFName = "Unknown";
+
                     jTextArea2.append(jTable1.getValueAt(row, col).toString() + "." + "\n" + "In this elective we learn about cybersecurity");
                     jTextArea1.setText("This elective is for ComNet students.");
-                } else if (row == 5 && col == 0) {
-                    jTextArea2.append(jTable1.getValueAt(row, col).toString() + "." + "\n" + "In this elective we learn about data models and sociotechnical systems.");
                 }
 
             }
         });
+
+        // ********************** End of Populating TextArea with Details **********************
+
+        // ********************** Booking an Elective **********************
+
+        button1.addActionListener(this);
+
+        // ********************** End of Booking an Elective **********************
 
         jTable1.setColumnSelectionAllowed(true);
         jTable1.getTableHeader().setReorderingAllowed(false);
@@ -503,7 +563,6 @@ public class Book extends javax.swing.JFrame {
         }
         
     }
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btn_2;
@@ -531,5 +590,21 @@ public class Book extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JPanel side_pane;
+
+    // ********************** Booking an Elective Method **********************
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == button1){
+
+            Faculty fac = new FacultyFactory().addFaculty(facID, facName);
+            Elective elect = new ElectiveFactory().createElective(electID, electName);
+            Gender gender = new GenderFactory().createGender(genderID);
+            Lecturer lect = new LecturerFactory().createLecturer(lecturerID, lecturerLName,
+                    lecturerFName, genderID);
+
+        }
+    }
+    // ********************** End of Booking an Elective Method **********************
+
     // End of variables declaration//GEN-END:variables
 }
