@@ -13,6 +13,10 @@ import za.ac.cput.elective.factory.ElectiveFactory;
 import za.ac.cput.elective.factory.FacultyFactory;
 import za.ac.cput.elective.factory.GenderFactory;
 import za.ac.cput.elective.factory.LecturerFactory;
+import za.ac.cput.elective.service.impl.ElectiveServiceImpl;
+import za.ac.cput.elective.service.impl.FacultyServiceImpl;
+import za.ac.cput.elective.service.impl.GenderServiceImpl;
+import za.ac.cput.elective.service.impl.LecturerServiceImpl;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -231,42 +235,6 @@ public class Book extends javax.swing.JFrame implements ActionListener {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(71, 120, 197));
-
-        button1.setBackground(new java.awt.Color(23, 35, 51));
-        button1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        button1.setForeground(new java.awt.Color(255, 255, 255));
-        button1.setLabel("BOOK");
-        button1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button1ActionPerformed(evt);
-            }
-        });
-
-        jPanel1.setBackground(new java.awt.Color(23, 35, 51));
-
-        jLabel18.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("Please select an elective ->");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel18)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel18)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         // ********************** Populating Items into the Table **********************
         String [] header={"Name","Code"};
         String [][] data={{"Application Development Theory 3", "ADT362S"},
@@ -357,6 +325,42 @@ public class Book extends javax.swing.JFrame implements ActionListener {
         button1.addActionListener(this);
 
         // ********************** End of Booking an Elective **********************
+
+        jPanel3.setBackground(new java.awt.Color(71, 120, 197));
+
+        button1.setBackground(new java.awt.Color(23, 35, 51));
+        button1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        button1.setForeground(new java.awt.Color(255, 255, 255));
+        button1.setLabel("BOOK");
+        button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button1ActionPerformed(evt);
+            }
+        });
+
+        jPanel1.setBackground(new java.awt.Color(23, 35, 51));
+
+        jLabel18.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setText("Please select an elective ->");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel18)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel18)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         jTable1.setColumnSelectionAllowed(true);
         jTable1.getTableHeader().setReorderingAllowed(false);
@@ -502,11 +506,11 @@ public class Book extends javax.swing.JFrame implements ActionListener {
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "You have succuesfully registered for an Elective"
-                + "\nYou can choose to make changes on the next page.");
-        Overview overview = new Overview();
-        this.setVisible(false);
-        overview.setVisible(true);
+//        JOptionPane.showMessageDialog(null, "You have succuesfully registered for an Elective"
+//                + "\nYou can choose to make changes on the next page.");
+//        Overview overview = new Overview();
+//        this.setVisible(false);
+//        overview.setVisible(true);
     }//GEN-LAST:event_button1ActionPerformed
 
     /**
@@ -597,11 +601,23 @@ public class Book extends javax.swing.JFrame implements ActionListener {
         if (e.getSource() == button1){
 
             Faculty fac = new FacultyFactory().addFaculty(facID, facName);
+            Faculty facServImpl = new FacultyServiceImpl().create(fac);
+
             Elective elect = new ElectiveFactory().createElective(electID, electName);
+            Elective electServImpl = new ElectiveServiceImpl().create(elect);
+
             Gender gender = new GenderFactory().createGender(genderID);
+            Gender genderServImpl = new GenderServiceImpl().create(gender);
+
             Lecturer lect = new LecturerFactory().createLecturer(lecturerID, lecturerLName,
                     lecturerFName, genderID);
+            Lecturer lectServImpl = new LecturerServiceImpl().create(lect);
 
+            JOptionPane.showMessageDialog(null, "You have succuesfully registered for an Elective"
+                    + "\nYou can choose to make changes on the next page.");
+            Overview overview = new Overview();
+            this.setVisible(false);
+            overview.setVisible(true);
         }
     }
     // ********************** End of Booking an Elective Method **********************
