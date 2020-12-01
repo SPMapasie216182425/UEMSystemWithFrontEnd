@@ -6,13 +6,18 @@
 package za.ac.cput.frontend.swing;
 
 import java.awt.Color;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import java.time.LocalDate;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 /**
- *
+ * GUI Created By: William King,
+ * Implementaion By Ridhaa Hendricks (218120966) and Sean Trainer (Enter Student Number)
  * @author Admin
  */
+
 public class Book extends javax.swing.JFrame {
 
     /**
@@ -167,12 +172,16 @@ public class Book extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("04");
 
+        LocalDate myDate = LocalDate.now();
+
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("Friday 23 Feb ");
+        jLabel16.setText(String.valueOf(myDate));
+
+        LocalTime myTime = LocalTime.now();
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText(":04");
+        jLabel17.setText(String.valueOf(myTime));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -238,26 +247,52 @@ public class Book extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"Application Development Theory 3", "ADT362S"},
+        // ********************** Populating Items into the Table **********************
+        String [] header={"Name","Code"};
+        String [][] data={{"Application Development Theory 3", "ADT362S"},
                 {"Python", "ICE362S"},
                 {"Application Development Practice 3", "ADP362S"},
                 {"Information Systems 3", "ITS362S"},
-                {"Communication Networking 3", "CMN362S"}
-            },
-            new String [] {
-                "Name", "Code"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
+                {"Communication Networking 3", "CMN362S"},
+                {"For Testing Purposes", "32154"},
+                {"More Testing Purposes", "32154"}};
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        DefaultTableModel model = new DefaultTableModel(data,header){
+            public boolean isCellEditable(int row, int column)
+            {
+                return false;//This causes all cells to be not editable
+            }
+        };
+
+        jTable1 = new JTable(model);
+
+        // ********************** Populating TextArea with Details **********************
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+
+                jTextArea2.setEditable(false);
+                jTextArea2.setText("");
+
+                int row = jTable1.rowAtPoint(evt.getPoint());
+                int col = jTable1.columnAtPoint(evt.getPoint());
+                if (row == 0 && col == 0) {
+                    jTextArea2.append(jTable1.getValueAt(row, col).toString() + "\n");
+                } else if (row == 1 && col == 0) {
+                    jTextArea2.append(jTable1.getValueAt(row, col).toString() + "\n");
+                } else if (row == 2 && col == 0) {
+                    jTextArea2.append(jTable1.getValueAt(row, col).toString() + "\n");
+                } else if (row == 3 && col == 0) {
+                    jTextArea2.append(jTable1.getValueAt(row, col).toString() + "\n");
+                } else if (row == 4 && col == 0) {
+                    jTextArea2.append(jTable1.getValueAt(row, col).toString() + "\n");
+                } else if (row == 5 && col == 0) {
+                    jTextArea2.append(jTable1.getValueAt(row, col).toString() + "\n");
+                }
+
             }
         });
+
         jTable1.setColumnSelectionAllowed(true);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
