@@ -286,7 +286,7 @@ public class Login extends javax.swing.JFrame {
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         // TODO add your handling code here:
  
-        Book book = new Book();
+        Book1 book = new Book1();
         this.setVisible(false);
         book.setVisible(true);
     }//GEN-LAST:event_button1ActionPerformed

@@ -123,6 +123,10 @@ public class Student {
             this.studentID = s.studentID;
             this.stream = s.stream;
             this.year = s.year;
+            this.gender = s.gender;
+            this.enrolledFor = s.enrolledFor;
+            this.contactID = s.contactID;
+            this.password = s.password;
             return this;
         }
 

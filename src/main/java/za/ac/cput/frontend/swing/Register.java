@@ -38,7 +38,6 @@ public class Register extends javax.swing.JFrame {
     private String baseURL1 = "http://localhost:8080/student/";
     private String baseURL2 = "http://localhost:8080/contact/";
 
-
     private static String username_admin_security = "admin";
     private static String password_admin_security = "psw";
 
@@ -467,8 +466,8 @@ public class Register extends javax.swing.JFrame {
                 .postForEntity(baseURL1 + "create",
                         student,
                         Student.class);
-    
-                ResponseEntity<Contact> postResponse2 = testRestTemplate
+
+        ResponseEntity<Contact> postResponse2 = testRestTemplate
                 .withBasicAuth(username_admin_security, password_admin_security)
                 .withBasicAuth(username_student_security, password_student_security)
                 .postForEntity(baseURL2 + "create",

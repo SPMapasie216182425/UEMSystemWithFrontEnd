@@ -25,8 +25,9 @@ public class ElectiveController {
 
        Elective elect = ElectiveFactory.createElective(
                 elective.getElectCode(),
-                elective.getElectName());
-
+                elective.getElectName(),
+                elective.getStudents_enrolled(),
+                elective.getSpaces_left());
 
         return electiveService.create(elect);
 
