@@ -26,6 +26,7 @@ public class ElectiveController {
        Elective elect = ElectiveFactory.createElective(
                 elective.getElectCode(),
                 elective.getElectName(),
+                elective.getElecDescription(),
                 elective.getStudents_enrolled(),
                 elective.getSpaces_left());
 
@@ -39,7 +40,7 @@ public class ElectiveController {
     }
 
 
-    @GetMapping("/update")
+    @RequestMapping(value = "/update", method = {RequestMethod.POST})
     public Elective update (@RequestBody Elective elective){
         return  electiveService.update(elective);
     }

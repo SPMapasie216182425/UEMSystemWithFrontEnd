@@ -19,7 +19,7 @@ public class StudentController {
     @PostMapping("/create")
     public Student create(@RequestBody Student s) {
 
-        Student student = StudentFactory.createStudent(s.getYear(), s.getStream(), s.getGender(), s.getEnrolledFor(), s.getContactID(), s.getPassword());
+        Student student = StudentFactory.createStudent(s.getStudentID(), s.getYear(), s.getStream(), s.getGender(), s.getEnrolledFor(), s.getContactID(), s.getPassword());
 
         return studentService.create(student);
     }
@@ -29,7 +29,7 @@ public class StudentController {
         return studentService.read(studentID);
     }
 
-    @GetMapping("/update")
+    @RequestMapping(value = "/update", method = {RequestMethod.POST})
     public Student update (@RequestBody Student s) {
         return studentService.update(s);
     }

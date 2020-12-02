@@ -8,13 +8,37 @@ package za.ac.cput.frontend.swing;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit4.SpringRunner;
+import za.ac.cput.elective.entity.Elective;
+import za.ac.cput.elective.entity.Student;
+import za.ac.cput.elective.factory.ElectiveFactory;
+import za.ac.cput.elective.factory.StudentFactory;
 
 /**
  *
  * @author Admin
  */
+    @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@RunWith(SpringRunner.class)
 public class Overview extends javax.swing.JFrame {
 
+    @Autowired
+    private TestRestTemplate testRestTemplate = new TestRestTemplate(TestRestTemplate.HttpClientOption.ENABLE_COOKIES);
+    private String baseURL1 = "http://localhost:8080/student/";
+    private String baseURL2 = "http://localhost:8080/elective/";
+
+    private static String username_admin_security = "admin";
+    private static String password_admin_security = "psw";
+
+    private static String username_student_security = "student";
+    private static String password_student_security = "password";
+    
+    
     /**
      * Creates new form Home
      */
@@ -59,7 +83,6 @@ public class Overview extends javax.swing.JFrame {
         ind_2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -95,7 +118,6 @@ public class Overview extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setCellSelectionEnabled(false);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -308,26 +330,15 @@ public class Overview extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(23, 35, 51));
 
-        jLabel20.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("Please select an elective ->");
-
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel20)
-                .addContainerGap(16, Short.MAX_VALUE))
+            .addGap(0, 243, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel20)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 37, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout side_paneLayout = new javax.swing.GroupLayout(side_pane);
@@ -398,6 +409,53 @@ public class Overview extends javax.swing.JFrame {
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         // TODO add your handling code here:
+        
+        Student student = StudentFactory.createStudent("57689", 3,
+                "Diploma: Information & Communication Technology: Applications Development",
+                'M', "PYT3", "218060033@mycput.ac.za",
+                "ba371c181ab4ec2b2e57df5dfaf72ff4");
+
+        Student sUpdated = new Student.Builder()
+                .copy(student)
+                .setEnrolledFor("None")
+                .build();
+
+        ResponseEntity<Student> updatedResponse = testRestTemplate
+                .withBasicAuth(username_admin_security, password_admin_security)
+                .withBasicAuth(username_student_security, password_student_security)
+                .postForEntity(
+                        baseURL1 + "update/",
+                        sUpdated,
+                        Student.class);
+
+        //******************************************************************************************
+        Elective elect = ElectiveFactory.createElective(
+                "PYT3",
+                "Python",
+                "In this elective we learn about Python fundamentals with Pycharm",
+                1,
+                19);
+
+        int student_enrolled = 0;
+        int spaces_left = 20;
+
+        Elective eUpdated = new Elective.Builder()
+                .copy(elect)
+                .setStudents_enrolled(student_enrolled)
+                .setSpaces_left(spaces_left)
+                .build();
+
+        ResponseEntity<Elective> updatedResponse2 = testRestTemplate
+                .withBasicAuth(username_admin_security, password_admin_security)
+                .withBasicAuth(username_student_security, password_student_security)
+                .postForEntity(
+                        baseURL2 + "update/",
+                        eUpdated,
+                        Elective.class);
+        
+        Book1 book = new Book1();
+        this.setVisible(false);
+        book.setVisible(true);
     }//GEN-LAST:event_button1ActionPerformed
 
     /**
@@ -468,7 +526,6 @@ public class Overview extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
