@@ -1,13 +1,7 @@
 package za.ac.cput.elective.entity;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /*
  * @author: Shane  Mapasie, GitHub: SPMapasie216182425
@@ -15,21 +9,26 @@ import java.util.List;
  * Date: 4rd July 2020
  */
 @Entity
-public class Elective  {
+public class Elective {
 
     @Id
     private String electCode;
     private String electName;
     // ArrayList<String> electives = new ArrayList<>();
+    private int students_enrolled;
+    private int spaces_left;
 
 
     /*No argument constructor, protected*/
-    protected Elective(){}
+    protected Elective() {
+    }
 
     /* constructor */
     public Elective(Builder builder) {
         this.electName = builder.electName;
         this.electCode = builder.electCode;
+        this.students_enrolled = builder.students_enrolled;
+        this.spaces_left = builder.spaces_left;
     }
 
     //getters
@@ -41,20 +40,29 @@ public class Elective  {
         return electCode;
     }
 
+    public int getStudents_enrolled() {
+        return students_enrolled;
+    }
+
+    public int getSpaces_left() {
+        return spaces_left;
+    }
+
     //toString Method
     @Override
     public String toString() {
-        return "Elective{" +
-                "Elective Name=" + electName +
-                ", Elective Code=" + electCode + '\'' +
-                '}';
+        return "Elective{"
+                + "Elective Name=" + electName
+                + ", Elective Code=" + electCode + '\''
+                + '}';
     }
 
     public static class Builder {
 
         private String electName;
         private String electCode;
-        private ArrayList<String> electives = new ArrayList<>();
+        private int students_enrolled;
+        private int spaces_left;
 
         /* setters using builder */
         public Builder setElectName(String electName) {
@@ -66,23 +74,24 @@ public class Elective  {
             this.electCode = electCode;
             return this;
         }
-        public Builder setElectives(ArrayList<String> electives) {
-            this.electives = electives;
-            return this;
-        }//ArrayList set method
 
-        public Builder getElectives() {
-            this.electives = electives;
+        public Builder setStudents_enrolled(int students_enrolled) {
+            this.students_enrolled = students_enrolled;
             return this;
-        }//ArrayList get method
+        }
 
+        public Builder setSpaces_left(int spaces_left) {
+            this.spaces_left = spaces_left;
+            return this;
+        }
+ 
         /*Constructor with Builder Implemented*/
         public Builder copy(Elective elect) {
             this.electName = elect.electName;
             this.electCode = elect.electCode;
-            for ( String e : electives){
-                this.electives.add(e);
-            }
+            this.students_enrolled = elect.students_enrolled;
+            this.spaces_left = elect.spaces_left;
+
             return this;
         }
 
@@ -92,30 +101,4 @@ public class Elective  {
         }
 
     }//end of builder class
-    public static void main(String[] args) {
-
-        ArrayList<String> electives = new ArrayList<>();
-        electives.add("BNA");
-        electives.add("Scala");
-        electives.add("JavaScript");
-        electives.add("Data Structures");
-        electives.add("Android");
-        electives.add("Docker");
-        electives.add("eCommerce");
-        electives.add("Python");
-        electives.add("PHP");
-        electives.add("R Programming");
-        electives.add("C++");
-        electives.add("Ruby");
-        electives.add("SQL");
-        electives.add("HTML");
-        electives.add("Java");
-
-        // Displaying elements
-        System.out.println("ArrayList after add operation:");
-        for(String ignored :electives)
-            System.out.println(electives);
-        Collections.sort(electives);
-
-    }
 }
