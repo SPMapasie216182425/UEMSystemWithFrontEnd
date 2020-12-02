@@ -19,9 +19,9 @@ public class StudentController {
     @PostMapping("/create")
     public Student create(@RequestBody Student s) {
 
-        Student student = StudentFactory.createStudent(s.getYear(), s.getStream());
+        Student student = StudentFactory.createStudent(s.getYear(), s.getStream(), s.getGender(), s.getEnrolledFor(), s.getContactID(), s.getPassword());
 
-        return studentService.create(s);
+        return studentService.create(student);
     }
 
     @GetMapping("/read/{studentID}")
