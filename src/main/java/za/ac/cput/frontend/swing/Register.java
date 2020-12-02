@@ -452,7 +452,7 @@ public class Register extends javax.swing.JFrame {
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         // TODO add your handling code here:
 
-        Student student = StudentFactory.createStudent(3,
+        Student student = StudentFactory.createStudent("57689", 3,
                 "Diploma: Information & Communication Technology: Applications Development",
                 'M', "None", "218060033@mycput.ac.za",
                 "ba371c181ab4ec2b2e57df5dfaf72ff4");

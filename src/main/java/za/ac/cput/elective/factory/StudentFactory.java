@@ -8,11 +8,10 @@ import java.util.UUID;
 public class StudentFactory {
 
 
-    public static Student createStudent(int year, String stream, char gender, String enrolledFor, String contactID, String password ) {
-        Double studentID = Math.random() * (1000 - 1 +1) + 1;
+    public static Student createStudent(String studentID, int year, String stream, char gender, String enrolledFor, String contactID, String password ) {
 
         Student s = new Student.Builder()
-                .setStudentID(studentID.toString())
+                .setStudentID(studentID)
                 .setYear(year)
                 .setStream(stream)
                 .setGender(gender)

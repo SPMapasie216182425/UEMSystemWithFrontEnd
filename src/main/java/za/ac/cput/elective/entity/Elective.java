@@ -15,6 +15,7 @@ public class Elective {
     private String electCode;
     private String electName;
     // ArrayList<String> electives = new ArrayList<>();
+    private String elecDescription;
     private int students_enrolled;
     private int spaces_left;
 
@@ -27,6 +28,7 @@ public class Elective {
     public Elective(Builder builder) {
         this.electName = builder.electName;
         this.electCode = builder.electCode;
+        this.elecDescription = builder.elecDescription;
         this.students_enrolled = builder.students_enrolled;
         this.spaces_left = builder.spaces_left;
     }
@@ -48,6 +50,10 @@ public class Elective {
         return spaces_left;
     }
 
+    public String getElecDescription() {
+        return elecDescription;
+    }
+
     //toString Method
     @Override
     public String toString() {
@@ -63,6 +69,7 @@ public class Elective {
         private String electCode;
         private int students_enrolled;
         private int spaces_left;
+        private String elecDescription;
 
         /* setters using builder */
         public Builder setElectName(String electName) {
@@ -72,6 +79,11 @@ public class Elective {
 
         public Builder setElectCode(String electCode) {
             this.electCode = electCode;
+            return this;
+        }
+        
+        public Builder setelecDescription(String elecDescription) {
+            this.elecDescription = elecDescription;
             return this;
         }
 
@@ -89,6 +101,7 @@ public class Elective {
         public Builder copy(Elective elect) {
             this.electName = elect.electName;
             this.electCode = elect.electCode;
+            this.elecDescription = elect.elecDescription;
             this.students_enrolled = elect.students_enrolled;
             this.spaces_left = elect.spaces_left;
 
